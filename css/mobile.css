@@ -1,0 +1,337 @@
+/* 移动端适配样式 */
+
+/* 基础移动端重置 */
+@media screen and (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* iframe 适配 */
+    .iframepage {
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    iframe {
+        width: 100vw !important;
+        height: 100vh !important;
+        border: none;
+        overflow: hidden;
+    }
+}
+
+/* 倒计时移动端优化 */
+@media screen and (max-width: 768px) {
+    .countdown-overlay {
+        padding: 20px;
+    }
+    
+    .countdown-content {
+        padding: 30px 20px;
+        margin: 20px;
+        max-width: calc(100vw - 40px);
+    }
+    
+    .countdown-title {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    
+    .countdown-display {
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .countdown-display span {
+        font-size: 2.2em;
+        padding: 15px 10px;
+        min-width: 60px;
+        border-radius: 10px;
+    }
+    
+    .countdown-separator {
+        font-size: 1.8em;
+        padding: 15px 2px;
+        align-self: center;
+    }
+    
+    .countdown-label {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+    }
+}
+
+/* 登录页面移动端优化 */
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 10%;
+        padding: 40px 20px;
+        max-width: 90%;
+    }
+    
+    .container h1 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+    
+    form input {
+        width: 100%;
+        max-width: 280px;
+        font-size: 16px;
+        padding: 15px;
+        margin: 0 auto 15px auto;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+    
+    form input:focus {
+        width: 100%;
+        max-width: 300px;
+        background-color: white;
+        color: #79A8AE;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    
+    form button {
+        width: 100%;
+        max-width: 280px;
+        font-size: 16px;
+        padding: 15px;
+        margin: 20px auto 0 auto;
+        border-radius: 8px;
+        background-color: white;
+        color: #79A8AE;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    form button:hover {
+        background-color: #f5f7f9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 输入框占位符移动端优化 */
+    ::-webkit-input-placeholder {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    :-moz-placeholder {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.8);
+        opacity: 1;
+    }
+    
+    ::-moz-placeholder {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.8);
+        opacity: 1;
+    }
+    
+    :-ms-input-placeholder {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* 背景动画移动端优化 */
+@media screen and (max-width: 768px) {
+    .bg-bubbles li {
+        width: 30px;
+        height: 30px;
+        animation-duration: 25s;
+    }
+    
+    .bg-bubbles li:nth-child(1) { width: 40px; height: 40px; }
+    .bg-bubbles li:nth-child(2) { width: 60px; height: 60px; }
+    .bg-bubbles li:nth-child(3) { width: 50px; height: 50px; }
+    .bg-bubbles li:nth-child(4) { width: 45px; height: 45px; }
+    .bg-bubbles li:nth-child(5) { width: 35px; height: 35px; }
+    .bg-bubbles li:nth-child(6) { width: 80px; height: 80px; }
+    .bg-bubbles li:nth-child(7) { width: 120px; height: 120px; }
+    .bg-bubbles li:nth-child(8) { width: 15px; height: 15px; }
+    .bg-bubbles li:nth-child(9) { width: 8px; height: 8px; }
+    .bg-bubbles li:nth-child(10) { width: 100px; height: 100px; }
+}
+
+/* 星星动画移动端优化 */
+@media screen and (max-width: 768px) {
+    .stars-container {
+        transform: scale(0.8);
+        transform-origin: center center;
+    }
+    
+    .star {
+        animation-duration: 2.5s;
+    }
+    
+    .star1, .star2, .star3, .star4, .star5 { width: 12px; height: 12px; }
+    .star6, .star7, .star8, .star9, .star10 { width: 10px; height: 10px; }
+    .star11, .star12, .star13, .star14, .star15 { width: 8px; height: 8px; }
+    .star16, .star17, .star18, .star19, .star20 { width: 10px; height: 10px; }
+    .star21, .star22, .star23 { width: 12px; height: 12px; }
+}
+
+/* 横屏优化 */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .countdown-content {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .countdown-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+    
+    .container {
+        margin-top: 5%;
+        padding: 20px;
+    }
+    
+    .container h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    
+    form input {
+        margin-bottom: 10px;
+        padding: 12px;
+    }
+    
+    form button {
+        margin-top: 15px;
+        padding: 12px;
+    }
+}
+
+/* 小屏幕手机优化 */
+@media screen and (max-width: 480px) {
+    .countdown-title {
+        font-size: 1.5em;
+    }
+    
+    .countdown-display span {
+        font-size: 1.8em;
+        padding: 12px 8px;
+        min-width: 50px;
+    }
+    
+    .countdown-separator {
+        font-size: 1.5em;
+    }
+    
+    .container h1 {
+        font-size: 1.6em;
+    }
+    
+    form input {
+        font-size: 14px;
+        padding: 12px;
+    }
+    
+    form button {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+/* 触摸优化 */
+@media screen and (max-width: 768px) {
+    /* 增大触摸目标 */
+    input, button, a, .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* 移除点击高亮 */
+    * {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* 允许文本输入框选择 */
+    input, textarea {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
+}
+
+/* 视口安全区域适配 */
+@supports (padding: max(0px)) {
+    @media screen and (max-width: 768px) {
+        .countdown-overlay {
+            padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+        }
+        
+        .container {
+            padding-top: max(40px, env(safe-area-inset-top));
+            padding-bottom: max(40px, env(safe-area-inset-bottom));
+        }
+    }
+}
+
+/* 滚动优化 */
+@media screen and (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* 平滑滚动 */
+    .scroll-container {
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+    }
+}
+
+/* 性能优化 */
+@media screen and (max-width: 768px) {
+    /* 减少动画性能开销 */
+    .bg-bubbles li {
+        will-change: transform;
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+    
+    .star {
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+    
+    /* 减少复杂动画 */
+    .countdown-content {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
