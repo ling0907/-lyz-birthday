@@ -1,5 +1,169 @@
 /* 移动端适配样式 */
 
+/* 强制横屏显示 - 仅在移动设备上生效 */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    body {
+        transform: rotate(90deg);
+        transform-origin: left top;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vh;
+        height: 100vw;
+        overflow: hidden;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+    
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vh;
+        height: 100vw;
+        background: #667eea;
+        background: -webkit-linear-gradient(45deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        background: linear-gradient(45deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        z-index: -1;
+    }
+    
+    /* 调整倒计时容器 */
+    .countdown-overlay,
+    .countdown-content {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* 调整登录容器 */
+    .container,
+    .wrapper,
+    .htmleaf-container {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    /* 调整生日蛋糕容器 */
+    .bg {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* 调整回忆页面容器 */
+    .bgcolor,
+    #dowebok {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    /* 调整canvas元素 */
+    canvas {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: 100vw !important;
+        height: 100vh !important;
+    }
+    
+    /* 调整背景动画 */
+    .bg-bubbles {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    /* 调整星星背景 */
+    .stars-container {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    /* 调整文字动画页面元素 */
+    .canvas,
+    .help,
+    .ui,
+    .overlay {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+    }
+    
+    /* 调整生日蛋糕页面元素 */
+    .happy,
+    .button-style1,
+    .button-style2,
+    .wish-button-container,
+    .smoke-container {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+    }
+    
+    /* 调整回忆页面元素 */
+    .section,
+    .timeline,
+    .timepoint11,
+    .timepoint21,
+    .ly-box01,
+    .ly-box11,
+    .ly-box12,
+    .ly-box21,
+    .ly-box22,
+    .ly-box23,
+    .ly-box81,
+    .ly-box82 {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+    }
+    
+    /* 防止双击缩放 */
+    * {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+    }
+    
+    /* 确保iframe也能正确旋转 */
+    iframe {
+        transform: rotate(-90deg) !important;
+        transform-origin: center center !important;
+        width: 100vw !important;
+        height: 100vh !important;
+    }
+}
+
+/* 横屏模式下的正常显示 */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    body {
+        transform: none !important;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+    }
+}
+
 /* 基础移动端重置 */
 @media screen and (max-width: 768px) {
     * {

@@ -12,7 +12,9 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>李宇哲，生日快乐！</title>
   <link rel="stylesheet" href="../css/mobile.css">
 
@@ -227,7 +229,7 @@
       requestAnimationFrame(loop);
     })();
 
-    // HELPER FUNCTIONS
+      // HELPER FUNCTIONS
     const lerp = (a, b, t) => Math.abs(b - a) > 0.1 ? a + t * (b - a) : b;
 
     function getTarget() {
@@ -242,6 +244,52 @@
         return { x, y };
       }
     }
+
+    // 强制横屏控制
+    function enforceLandscape() {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        const isPortrait = window.innerHeight > window.innerWidth;
+        
+        if (isPortrait) {
+          document.body.style.transform = 'rotate(90deg)';
+          document.body.style.transformOrigin = 'left top';
+          document.body.style.position = 'fixed';
+          document.body.style.top = '0';
+          document.body.style.left = '0';
+          document.body.style.width = '100vh';
+          document.body.style.height = '100vw';
+          
+          // 重新设置canvas尺寸以适应横屏
+          [c1, c2, c3].forEach(c => {
+            c.width = window.innerHeight;
+            c.height = window.innerWidth;
+          });
+        } else {
+          document.body.style.transform = 'none';
+          document.body.style.position = 'relative';
+          document.body.style.width = '100%';
+          document.body.style.height = '100%';
+          
+          // 恢复正常canvas尺寸
+          [c1, c2, c3].forEach(c => {
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+          });
+        }
+      }
+    }
+    
+    // 监听屏幕方向变化
+    window.addEventListener('orientationchange', function() {
+      setTimeout(enforceLandscape, 200);
+    });
+    
+    window.addEventListener('resize', enforceLandscape);
+    
+    // 页面加载完成后执行
+    window.addEventListener('load', enforceLandscape);
 
 
   </script>
