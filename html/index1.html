@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title></title>
+
+  <link rel="stylesheet" href="../css/normalizel.css">
+
+  <link rel="stylesheet" href="../css/stylel.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+<canvas class="canvas"></canvas>
+
+<div class="help">?</div> 
+
+<div class="ui">
+  <input class="ui-input" type="text" />
+  <span class="ui-return">↵</span>
+</div>
+
+<div class="overlay">
+  <div class="tabs">
+    <div class="tabs-labels"><span class="tabs-label">Commands</span><span class="tabs-label">Info</span><span class="tabs-label">Share</span></div>
+
+    <div class="tabs-panels">
+      <ul class="tabs-panel commands">
+        <li class="commands-item"><span class="commands-item-title">Text</span><span class="commands-item-info" data-demo="Hello :)">Type anything</span><span class="commands-item-action">Demo</span></li>
+        <li class="commands-item"><span class="commands-item-title">Countdown</span><span class="commands-item-info" data-demo="#countdown 10">#countdown<span class="commands-item-mode">number</span></span><span class="commands-item-action">Demo</span></li>
+        <li class="commands-item"><span class="commands-item-title">Time</span><span class="commands-item-info" data-demo="#time">#time</span><span class="commands-item-action">Demo</span></li>
+        <li class="commands-item"><span class="commands-item-title">Rectangle</span><span class="commands-item-info" data-demo="#rectangle 30x15">#rectangle<span class="commands-item-mode">width x height</span></span><span class="commands-item-action">Demo</span></li>
+        <li class="commands-item"><span class="commands-item-title">Circle</span><span class="commands-item-info" data-demo="#circle 25">#circle<span class="commands-item-mode">diameter</span></span><span class="commands-item-action">Demo</span></li>
+
+        <li class="commands-item commands-item--gap"><span class="commands-item-title">Animate</span><span class="commands-item-info" data-demo="The time is|#time|#countdown 3|#icon thumbs-up"><span class="commands-item-mode">command1</span>&nbsp;|<span class="commands-item-mode">command2</span></span><span class="commands-item-action">Demo</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  <!-- 统一音频 -->
+  <audio id="bg-music" src="../music/1.mp3" loop autoplay></audio>
+
+  <script src="../js/indexl.js"></script>
+
+  <script>
+    // 音频管理系统
+    const AudioPlayer = {
+      audio: null,
+      currentTime: 0,
+      isPlaying: false,
+      
+      init: function() {
+        this.audio = document.getElementById('bg-music');
+        this.loadAudioState();
+        this.setupEventListeners();
+      },
+      
+      loadAudioState: function() {
+        const savedTime = localStorage.getItem('audioCurrentTime');
+        const savedPlaying = localStorage.getItem('audioPlaying');
+        
+        if (savedTime) {
+          this.currentTime = parseFloat(savedTime);
+        }
+        
+        // 设置音频时间并尝试立即播放
+        this.audio.currentTime = this.currentTime;
+        if (localStorage.getItem('audioPlaying') === 'true') {
+          this.attemptAutoPlay();
+        }
+      },
+      
+      play: function() {
+        this.audio.play().then(() => {
+          this.isPlaying = true;
+          localStorage.setItem('audioPlaying', 'true');
+        }).catch(err => {
+          console.log('播放失败:', err);
+        });
+      },
+      
+      pause: function() {
+        this.audio.pause();
+        this.isPlaying = false;
+        this.saveState();
+      },
+      
+      saveState: function() {
+        localStorage.setItem('audioCurrentTime', this.audio.currentTime.toString());
+        localStorage.setItem('audioPlaying', this.isPlaying.toString());
+      },
+      
+      setupEventListeners: function() {
+        // 页面卸载时保存状态
+        window.addEventListener('beforeunload', () => {
+          this.saveState();
+        });
+        
+        // 页面可见性变化时控制播放
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.pause();
+          } else {
+            this.play();
+          }
+        });
+        
+        // 定期保存播放进度
+        setInterval(() => {
+          if (this.isPlaying) {
+            this.saveState();
+          }
+        }, 1000);
+        
+        // 尝试立即自动播放
+        this.attemptAutoPlay();
+      },
+      
+      attemptAutoPlay: function() {
+        // 多种方式尝试自动播放
+        const playPromise = this.audio.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            this.isPlaying = true;
+            localStorage.setItem('audioPlaying', 'true');
+            console.log('音频自动播放成功');
+          }).catch(err => {
+            console.log('自动播放失败，等待用户交互:', err);
+            // 如果失败，监听任意用户交互后播放
+            document.addEventListener('click', () => this.play(), { once: true });
+            document.addEventListener('keydown', () => this.play(), { once: true });
+            document.addEventListener('mousemove', () => this.play(), { once: true });
+            document.addEventListener('scroll', () => this.play(), { once: true });
+          });
+        }
+      }
+    };
+
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      AudioPlayer.init();
+      
+      // 页面加载完成后立即尝试自动播放
+      setTimeout(() => {
+        AudioPlayer.attemptAutoPlay();
+      }, 500);
+    });
+  </script>
+
+</body>
+
+</html>
