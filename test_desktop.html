@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面端显示测试</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/mobile.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1>桌面端显示测试</h1>
+            <p>如果你能看到这个页面正常显示，说明桌面端已经修复了！</p>
+            <p>屏幕宽度: <span id="width"></span>px</p>
+            <p>屏幕高度: <span id="height"></span>px</p>
+            <p>是否移动设备: <span id="isMobile"></span></p>
+            <p>是否触摸设备: <span id="isTouch"></span></p>
+            <p>指针类型: <span id="pointer"></span></p>
+            <button onclick="window.location.href='index.html'">返回主页</button>
+        </div>
+    </div>
+
+    <script>
+        // 更新屏幕信息
+        function updateInfo() {
+            document.getElementById('width').textContent = window.innerWidth;
+            document.getElementById('height').textContent = window.innerHeight;
+            
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            document.getElementById('isMobile').textContent = isMobile ? '是' : '否';
+            
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            document.getElementById('isTouch').textContent = isTouch ? '是' : '否';
+            
+            const pointerType = window.matchMedia('(pointer: coarse)').matches ? '触摸' : '鼠标';
+            document.getElementById('pointer').textContent = pointerType;
+        }
+        
+        updateInfo();
+        window.addEventListener('resize', updateInfo);
+    </script>
+</body>
+</html>

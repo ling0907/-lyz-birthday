@@ -1,7 +1,119 @@
 /* 移动端适配样式 */
 
-/* 强制横屏显示 - 仅在移动设备上生效 */
-@media screen and (max-width: 768px) and (orientation: portrait) {
+/* 桌面端重置 - 确保桌面端完全不受影响 */
+@media screen and (min-width: 769px) {
+    body {
+        transform: none !important;
+        position: relative !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        -webkit-user-select: auto !important;
+        -moz-user-select: auto !important;
+        -ms-user-select: auto !important;
+        user-select: auto !important;
+    }
+    
+    body::before {
+        display: none !important;
+    }
+    
+    /* 重置所有容器的变换 */
+    .countdown-overlay,
+    .countdown-content,
+    .container,
+    .wrapper,
+    .htmleaf-container,
+    .bg,
+    .bgcolor,
+    #dowebok,
+    canvas,
+    .bg-bubbles,
+    .stars-container,
+    .canvas,
+    .help,
+    .ui,
+    .overlay,
+    .happy,
+    .button-style1,
+    .button-style2,
+    .wish-button-container,
+    .smoke-container,
+    .section,
+    .timeline,
+    .timepoint11,
+    .timepoint21,
+    .ly-box01,
+    .ly-box11,
+    .ly-box12,
+    .ly-box21,
+    .ly-box22,
+    .ly-box23,
+    .ly-box81,
+    .ly-box82,
+    iframe {
+        transform: none !important;
+        position: relative !important;
+        width: auto !important;
+        height: auto !important;
+    }
+}
+
+@media screen and (hover: hover) and (pointer: fine) {
+    /* 桌面设备重置 */
+    body {
+        transform: none !important;
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: visible !important;
+    }
+    
+    body::before {
+        display: none !important;
+    }
+    
+    /* 重置所有容器的变换 */
+    .countdown-overlay,
+    .countdown-content,
+    .container,
+    .wrapper,
+    .htmleaf-container,
+    .bg,
+    .bgcolor,
+    #dowebok,
+    canvas,
+    .bg-bubbles,
+    .stars-container,
+    .canvas,
+    .help,
+    .ui,
+    .overlay,
+    .happy,
+    .button-style1,
+    .button-style2,
+    .wish-button-container,
+    .smoke-container,
+    .section,
+    .timeline,
+    .timepoint11,
+    .timepoint21,
+    .ly-box01,
+    .ly-box11,
+    .ly-box12,
+    .ly-box21,
+    .ly-box22,
+    .ly-box23,
+    .ly-box81,
+    .ly-box82,
+    iframe {
+        transform: none !important;
+        position: relative !important;
+    }
+}
+
+/* 强制横屏显示 - 仅在真正的移动设备且为竖屏时生效 */
+@media screen and (max-width: 768px) and (orientation: portrait) and (hover: none) and (pointer: coarse) {
     body {
         transform: rotate(90deg);
         transform-origin: left top;

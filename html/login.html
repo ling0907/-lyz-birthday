@@ -228,11 +228,25 @@
 			}, 500);
 		});
 		
-		// 强制横屏控制
+		// 强制横屏控制 - 仅在真正的移动设备上生效
 		function enforceLandscape() {
+			// 更严格的移动设备检测
 			const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+			const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+			const isSmallScreen = window.innerWidth <= 768;
+			const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
 			
-			if (isMobile) {
+			// 必须同时满足所有条件才认为是移动设备
+			const isRealMobile = isMobile && isTouchDevice && isSmallScreen && hasCoarsePointer;
+			
+			if (isRealMobile) {
+			} else {
+				// 桌面端：确保没有旋转
+				document.body.style.transform = 'none';
+				document.body.style.position = 'relative';
+				document.body.style.width = '100%';
+				document.body.style.height = 'auto';
+				document.body.style.overflow = 'visible';
 				const isPortrait = window.innerHeight > window.innerWidth;
 				
 				if (isPortrait) {
