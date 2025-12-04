@@ -12,12 +12,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>李宇哲，生日快乐！</title>
-  <link rel="stylesheet" href="../css/mobile.css">
-
 </head>
 <style>
   body {
@@ -229,8 +228,59 @@
       requestAnimationFrame(loop);
     })();
 
-      // HELPER FUNCTIONS
+    // 初始化横屏检测
+    enforceLandscape();
+    window.addEventListener('resize', enforceLandscape);
+    window.addEventListener('orientationchange', enforceLandscape);
+
+    // HELPER FUNCTIONS
     const lerp = (a, b, t) => Math.abs(b - a) > 0.1 ? a + t * (b - a) : b;
+
+    function enforceLandscape() {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        const isPortrait = window.innerHeight > window.innerWidth;
+        
+        if (isPortrait) {
+          // 显示横屏提示而不是强制旋转
+          if (!document.getElementById('rotate-notice')) {
+            const notice = document.createElement('div');
+            notice.id = 'rotate-notice';
+            notice.innerHTML = `
+              <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white;">
+                <div style="font-size:30px; margin-bottom:20px;">↻</div>
+                <div style="font-size:18px; text-align:center; padding:0 20px;">
+                  请将手机旋转到横屏<br>以获得最佳观看效果
+                </div>
+              </div>
+            `;
+            document.body.appendChild(notice);
+          }
+          
+          // 重新计算canvas尺寸以适应竖屏
+          const scale = Math.min(window.innerWidth / 800, 1);
+          [c1, c2, c3].forEach(c => {
+            c.style.width = '100%';
+            c.style.height = '70vh';
+            c.style.position = 'relative';
+          });
+          
+        } else {
+          // 横屏时移除提示
+          const notice = document.getElementById('rotate-notice');
+          if (notice) notice.remove();
+          
+          // 恢复正常canvas尺寸
+          [c1, c2, c3].forEach(c => {
+            c.style.width = '100%';
+            c.style.height = '100%';
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+          });
+        }
+      }
+    }
 
     function getTarget() {
       if (targets.length > 0) {
@@ -244,52 +294,6 @@
         return { x, y };
       }
     }
-
-    // 强制横屏控制
-    function enforceLandscape() {
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        const isPortrait = window.innerHeight > window.innerWidth;
-        
-        if (isPortrait) {
-          document.body.style.transform = 'rotate(90deg)';
-          document.body.style.transformOrigin = 'left top';
-          document.body.style.position = 'fixed';
-          document.body.style.top = '0';
-          document.body.style.left = '0';
-          document.body.style.width = '100vh';
-          document.body.style.height = '100vw';
-          
-          // 重新设置canvas尺寸以适应横屏
-          [c1, c2, c3].forEach(c => {
-            c.width = window.innerHeight;
-            c.height = window.innerWidth;
-          });
-        } else {
-          document.body.style.transform = 'none';
-          document.body.style.position = 'relative';
-          document.body.style.width = '100%';
-          document.body.style.height = '100%';
-          
-          // 恢复正常canvas尺寸
-          [c1, c2, c3].forEach(c => {
-            c.width = window.innerWidth;
-            c.height = window.innerHeight;
-          });
-        }
-      }
-    }
-    
-    // 监听屏幕方向变化
-    window.addEventListener('orientationchange', function() {
-      setTimeout(enforceLandscape, 200);
-    });
-    
-    window.addEventListener('resize', enforceLandscape);
-    
-    // 页面加载完成后执行
-    window.addEventListener('load', enforceLandscape);
 
 
   </script>

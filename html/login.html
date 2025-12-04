@@ -4,38 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Happy Birthday</title>
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
-	<link rel="stylesheet" type="text/css" href="../css/mobile.css">
 </head>
 
 <body>
-	<!-- 倒计时覆盖层 -->
-	<div id="countdown-overlay" class="countdown-overlay">
-		<div class="countdown-content">
-			<h2 class="countdown-title">倒计时！</h2>
-			<div class="countdown-display">
-				<span id="countdown-days">00</span>
-				<span class="countdown-separator">:</span>
-				<span id="countdown-hours">00</span>
-				<span class="countdown-separator">:</span>
-				<span id="countdown-minutes">00</span>
-				<span class="countdown-separator">:</span>
-				<span id="countdown-seconds">00</span>
-			</div>
-			<p class="countdown-label">天　时　分　秒</p>
-			<div class="countdown-progress">
-				<div class="progress-bar">
-					<div id="progress-fill" class="progress-fill"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="htmleaf-container" id="main-content" style="display: none;">
+	<div class="htmleaf-container" id="main-content">
 		<div class="wrapper">
 			<div class="container">
 				<h1>生日快乐</h1>
@@ -165,116 +140,16 @@
 			// 初始化音频
 			AudioPlayer.init();
 			
-			// 设置目标时间（可以修改这个时间）
-			const targetDate = new Date('2025-12-04T00:00:00');
-			// 设置为10秒后，实际使用时可以设置具体日期
-			targetDate.setSeconds(targetDate.getSeconds() + 10);
-			
-			const countdownInterval = setInterval(updateCountdown, 1000);
-			const totalTime = targetDate - new Date();
-			
-			function updateCountdown() {
-				const now = new Date();
-				const timeRemaining = targetDate - now;
-				
-				if (timeRemaining <= 0) {
-					clearInterval(countdownInterval);
-					showMainContent();
-					return;
-				}
-				
-				// 计算时间
-				const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-				const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-				const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-				
-				// 更新显示
-				$('#countdown-days').text(String(days).padStart(2, '0'));
-				$('#countdown-hours').text(String(hours).padStart(2, '0'));
-				$('#countdown-minutes').text(String(minutes).padStart(2, '0'));
-				$('#countdown-seconds').text(String(seconds).padStart(2, '0'));
-				
-				// 更新进度条
-				const progress = ((totalTime - timeRemaining) / totalTime) * 100;
-				$('#progress-fill').css('width', progress + '%');
-			}
-			
-			function showMainContent() {
-				$('.countdown-overlay').addClass('hiding');
-				
-				setTimeout(function() {
-					$('.countdown-overlay').remove();
-					$('#main-content').fadeIn();
-					// 倒计时结束后开始播放音乐
-					AudioPlayer.attemptAutoPlay();
-				}, 1000);
-			}
-			
-			// 初始化倒计时
-			updateCountdown();
-			
-			// 点击进度条可以跳过倒计时（可选）
-			$('.countdown-progress').click(function() {
-				if (confirm('确定要跳过倒计时直接进入吗？')) {
-					clearInterval(countdownInterval);
-					showMainContent();
-				}
-			});
+			// 直接显示主要内容，播放音乐
+			setTimeout(() => {
+				AudioPlayer.attemptAutoPlay();
+			}, 500);
 			
 			// 页面加载完成后立即尝试自动播放
 			setTimeout(() => {
 				AudioPlayer.attemptAutoPlay();
 			}, 500);
 		});
-		
-		// 强制横屏控制 - 仅在真正的移动设备上生效
-		function enforceLandscape() {
-			// 更严格的移动设备检测
-			const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-			const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-			const isSmallScreen = window.innerWidth <= 768;
-			const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-			
-			// 必须同时满足所有条件才认为是移动设备
-			const isRealMobile = isMobile && isTouchDevice && isSmallScreen && hasCoarsePointer;
-			
-			if (isRealMobile) {
-			} else {
-				// 桌面端：确保没有旋转
-				document.body.style.transform = 'none';
-				document.body.style.position = 'relative';
-				document.body.style.width = '100%';
-				document.body.style.height = 'auto';
-				document.body.style.overflow = 'visible';
-				const isPortrait = window.innerHeight > window.innerWidth;
-				
-				if (isPortrait) {
-					document.body.style.transform = 'rotate(90deg)';
-					document.body.style.transformOrigin = 'left top';
-					document.body.style.position = 'fixed';
-					document.body.style.top = '0';
-					document.body.style.left = '0';
-					document.body.style.width = '100vh';
-					document.body.style.height = '100vw';
-				} else {
-					document.body.style.transform = 'none';
-					document.body.style.position = 'relative';
-					document.body.style.width = '100%';
-					document.body.style.height = '100%';
-				}
-			}
-		}
-		
-		// 监听屏幕方向变化
-		window.addEventListener('orientationchange', function() {
-			setTimeout(enforceLandscape, 200);
-		});
-		
-		window.addEventListener('resize', enforceLandscape);
-		
-		// 页面加载完成后执行
-		window.addEventListener('load', enforceLandscape);
 	</script>
 
 </body>

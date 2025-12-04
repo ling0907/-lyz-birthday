@@ -15,137 +15,13 @@ body {
   overflow: hidden;
 }
 
-/* 倒计时覆盖层 */
-.countdown-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+/* 主内容区域 */
+#main-content {
   width: 100%;
-  height: 100%;
-  background: rgba(102, 126, 234, 0.95);
-  background: -webkit-linear-gradient(45deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 50%, rgba(240, 147, 251, 0.95) 100%);
-  background: linear-gradient(45deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 50%, rgba(240, 147, 251, 0.95) 100%);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.countdown-content {
-  text-align: center;
-  color: white;
-  max-width: 600px;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.countdown-title {
-  font-size: 2.5em;
-  margin-bottom: 30px;
-  font-weight: 300;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  letter-spacing: 2px;
-}
-
-.countdown-display {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  font-family: 'Courier New', monospace;
-}
-
-.countdown-display span {
-  font-size: 3.5em;
-  font-weight: bold;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 20px;
-  border-radius: 15px;
-  min-width: 100px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.countdown-separator {
-  font-size: 2.5em;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 0.8);
-  padding: 20px 0;
-}
-
-.countdown-label {
-  font-size: 1.2em;
-  margin-bottom: 30px;
-  opacity: 0.9;
-  letter-spacing: 5px;
-}
-
-.countdown-progress {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 100%;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4);
-  border-radius: 4px;
-  transition: width 1s ease-in-out;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(1.1);
-  }
-}
-
-.countdown-overlay.hiding {
-  animation: fadeOut 1s ease-in-out forwards;
-}
-
-/* 主内容区域过渡效果 */
-#main-content {
-  animation: fadeInContent 1s ease-in-out;
-}
-
-@keyframes fadeInContent {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 body ::-webkit-input-placeholder {
   /* WebKit browsers */
@@ -370,4 +246,201 @@ form button:hover {
     -webkit-transform: translateY(-900px) rotate(600deg);
             transform: translateY(-900px) rotate(600deg);
   }
+}
+
+/* 移动端适配 - 更全面的响应式设计 */
+@media screen and (max-width: 768px) {
+  /* 基础设置 */
+  html, body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+  
+  body {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  /* 字体调整 */
+  h1, h2, h3 {
+    font-size: 1.5em !important;
+    margin: 10px 0;
+  }
+  
+  /* 登录页面适配 */
+  .container {
+    max-width: 90%;
+    margin: 5% auto;
+    padding: 40px 20px;
+    height: auto;
+    min-height: 400px;
+  }
+  
+  .container h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  
+  form input {
+    width: 90%;
+    max-width: 280px;
+    font-size: 16px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+  }
+  
+  form input:focus {
+    width: 95%;
+    max-width: 300px;
+  }
+  
+  form button {
+    width: 90%;
+    max-width: 280px;
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+  
+
+  
+  /* 蛋糕页面适配 */
+  .bg {
+    overflow: auto;
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+  .velas {
+    margin-left: calc(50% - 2.5px);
+    top: 25vh;
+    width: 8px;
+    height: 40px;
+  }
+  
+  #cake {
+    width: 120px;
+    margin-left: calc(50% - 60px);
+    margin-top: -3em;
+  }
+  
+  /* 粒子动画页面适配 */
+  .canvas {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+  
+  /* 按钮适配 */
+  .button-style1, .button-style2 {
+    width: 35%;
+    min-width: 100px;
+  }
+  
+  .button-style1 {
+    left: 8% !important;
+    bottom: 10% !important;
+  }
+  
+  .button-style2 {
+    right: 8% !important;
+    left: auto !important;
+    bottom: 10% !important;
+  }
+  
+  .link1, .link2 {
+    width: 100% !important;
+    height: 44px !important;
+    line-height: 44px !important;
+    font-size: 14px;
+  }
+  
+  .bt1, .bt2 {
+    top: 0 !important;
+    line-height: 44px !important;
+    font-size: 14px;
+  }
+  
+  /* 许愿按钮适配 */
+  .wish-button-container {
+    left: 50% !important;
+    top: 75% !important;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  .wish-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 14px 20px;
+    min-height: 48px;
+  }
+  
+  /* 记忆页面适配 */
+  .memory-card, .photo-card {
+    width: 90%;
+    margin: 10px auto;
+    max-width: 350px;
+  }
+  
+  /* 彩蛋页面适配 */
+  .easter-egg-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+/* 小屏幕手机适配 */
+@media screen and (max-width: 480px) {
+  .container {
+    margin: 2% auto;
+    padding: 20px 15px;
+  }
+  
+  .container h1 {
+    font-size: 24px;
+  }
+  
+
+  
+  .velas {
+    top: 20vh;
+    width: 6px;
+    height: 35px;
+  }
+  
+  #cake {
+    width: 100px;
+    margin-left: calc(50% - 50px);
+  }
+  
+  .button-style1, .button-style2 {
+    width: 30%;
+    min-width: 80px;
+  }
+  
+  .wish-button-container {
+    width: 85%;
+  }
+}
+
+/* 触摸优化 */
+button, a, input[type="submit"] {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 防止双击缩放 */
+* {
+  touch-action: manipulation;
+}
+
+/* 优化滚动 */
+html {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
 }

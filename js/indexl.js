@@ -8,21 +8,28 @@ var S = {
     S.Drawing.init('.canvas');
     document.body.classList.add('body--ready');
 
+    // 手机端优化：调整动画循环计数
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var frameCount = isMobile ? 500 : 700; // 手机端减少帧数，更快跳转
+
     if (i !== -1) {
       S.UI.simulate(decodeURI(action).substring(i + 3));
     } else {
-      S.UI.simulate('李宇哲！|祝你~|生日快乐呀！|happy birthday! !|#countdown 3||');
+      // 手机端使用更简短的文字
+      var message = isMobile ? 
+        '李宇哲！|生日快乐！|happy birthday!|#countdown 3||' :
+        '李宇哲！|祝你~|生日快乐呀！|happy birthday! !|#countdown 3||';
+      S.UI.simulate(message);
     }
 
     S.Drawing.loop(function () {
-            m++;
+      m++;
       S.Shape.render();
-      //console.log(m);
-      if(m==700){
+      
+      if(m >= frameCount){
         window.location.href="../html/BirthdayCake.html";
       }
     });
-
   }
 };
 
@@ -45,6 +52,14 @@ S.Drawing = (function () {
       canvas = document.querySelector(el);
       context = canvas.getContext('2d');
       this.adjustCanvas();
+
+      // 手机端优化：减少重绘频率
+      var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if(isMobile){
+        requestFrame = function(callback) {
+          window.setTimeout(callback, 1000 / 30); // 手机端30fps
+        };
+      }
 
       window.addEventListener('resize', function (e) {
         S.Drawing.adjustCanvas();

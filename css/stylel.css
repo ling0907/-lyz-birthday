@@ -7,6 +7,12 @@ body {
   color: #666;
   font-size: 16px;
   line-height: 1.5em;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  touch-action: manipulation;
 }
 
 h1 {
@@ -329,4 +335,185 @@ body,
 
 .touch .ui-input {
   display: none;
+}
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+  /* 1. 调整字体大小 */
+  body {
+    font-size: 14px;
+  }
+  
+  h1, h2, h3 {
+    font-size: 1.5em !important;
+  }
+  
+  /* 2. 调整蛋糕蜡烛页面 */
+  .bg {
+    overflow: auto;
+    min-height: 100vh;
+  }
+  
+  .velas {
+    margin-left: calc(50% - 2.5px);
+    top: 30vh;
+  }
+  
+  #cake {
+    width: 150px;
+    margin-left: calc(50% - 75px);
+    margin-top: -5em;
+  }
+  
+  .happy {
+    left: 50% !important;
+    transform: translateX(-50%);
+    width: 80%;
+    top: 40% !important;
+  }
+  
+  .happy img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* 3. 调整按钮位置 */
+  .button-style1, .button-style2 {
+    width: 40%;
+    text-align: center;
+  }
+  
+  .button-style1 {
+    left: 10% !important;
+  }
+  
+  .button-style2 {
+    right: 10% !important;
+    left: auto !important;
+  }
+  
+  .link1, .link2 {
+    width: 100% !important;
+    height: 50px !important;
+    line-height: 50px !important;
+  }
+  
+  .bt1, .bt2 {
+    top: 0 !important;
+    line-height: 50px !important;
+  }
+  
+  /* 4. 调整许愿按钮 */
+  .wish-button-container {
+    left: 50% !important;
+    top: 70% !important;
+    width: 80%;
+  }
+  
+  .wish-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+}
+
+/* 触摸优化 */
+button, a, input[type="submit"] {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 防止双击缩放 */
+* {
+  touch-action: manipulation;
+}
+
+/* 优化滚动 */
+html {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/* Canvas动画移动端适配 */
+@media screen and (max-width: 768px) {
+  .canvas {
+    width: 100vw !important;
+    height: 100vh !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .help {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  
+  .ui {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%;
+    max-width: 300px;
+  }
+  
+  .ui-input {
+    font-size: 16px;
+    padding: 10px 15px;
+    width: 100%;
+  }
+  
+  .commands {
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    right: 10px;
+    bottom: auto;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 9;
+  }
+  
+  .commands-item {
+    padding: 15px;
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .help {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  
+  .ui-input {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  .commands-item {
+    padding: 12px;
+    font-size: 10px;
+  }
+}
+
+/* 移动端性能优化 */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2), 
+       (max-width: 768px) and (min-resolution: 192dpi) {
+  .canvas {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 }

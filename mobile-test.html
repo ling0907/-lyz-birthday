@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>移动端测试 - Happy Birthday</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .test-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+        
+        .test-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+            min-height: 44px;
+            min-width: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .test-button:hover {
+            background: #f0f0f0;
+        }
+        
+        .responsive-test {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .screen-info {
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .test-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .test-button {
+                width: calc(50% - 10px);
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .test-container {
+                margin: 5px;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 18px;
+            }
+            
+            .test-button {
+                width: calc(100% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎂 移动端适配测试页面 🎂</h1>
+        
+        <div class="screen-info" id="screenInfo">
+            屏幕尺寸检测中...
+        </div>
+        
+        <div class="test-item">
+            <h3>📱 移动端优化功能</h3>
+            <ul>
+                <li>✅ Viewport meta标签优化</li>
+                <li>✅ 响应式设计</li>
+                <li>✅ 触摸优化</li>
+                <li>✅ 防止双击缩放</li>
+                <li>✅ iframe高度自适应</li>
+                <li>✅ 字体大小调整</li>
+            </ul>
+        </div>
+        
+        <div class="test-item">
+            <h3>🔗 测试登录页面（无倒计时）</h3>
+            <div class="responsive-test">
+                <a href="html/login.html" class="test-button">登录页</a>
+                <a href="index.html" class="test-button">主页(iframe)</a>
+            </div>
+        </div>
+        
+        <div class="test-item">
+            <h3>🎂 其他页面测试</h3>
+            <div class="responsive-test">
+                <a href="html/index1.html" class="test-button">粒子动画</a>
+                <a href="html/BirthdayCake.html" class="test-button">生日蛋糕</a>
+                <a href="html/Memories.html" class="test-button">回忆页面</a>
+                <a href="html/EasterEgg.html" class="test-button">彩蛋页面</a>
+            </div>
+        </div>
+        
+        <div class="test-item">
+            <h3>📏 当前屏幕信息</h3>
+            <p id="deviceInfo">设备信息加载中...</p>
+        </div>
+        
+        <div class="test-item">
+            <h3>🎯 测试说明</h3>
+            <p>1. 在不同设备上测试各个页面</p>
+            <p>2. 检查页面是否能正常加载和显示</p>
+            <p>3. 验证触摸操作是否流畅</p>
+            <p>4. 确认文字大小和按钮大小是否合适</p>
+            <p>5. 测试横屏和竖屏切换</p>
+        </div>
+    </div>
+    
+    <script>
+        // 显示屏幕信息
+        function updateScreenInfo() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            document.getElementById('screenInfo').innerHTML = `
+                屏幕宽度: ${width}px | 屏幕高度: ${height}px | 设备类型: ${isMobile ? '移动设备' : '桌面设备'}
+            `;
+            
+            document.getElementById('deviceInfo').innerHTML = `
+                <strong>设备信息:</strong><br>
+                用户代理: ${navigator.userAgent.substring(0, 100)}...<br>
+                屏幕宽高比: ${(width/height).toFixed(2)}<br>
+                像素密度: ${window.devicePixelRatio || 1}<br>
+                方向: ${width > height ? '横屏' : '竖屏'}
+            `;
+        }
+        
+        // 页面加载时更新信息
+        updateScreenInfo();
+        
+        // 监听窗口大小变化
+        window.addEventListener('resize', updateScreenInfo);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(updateScreenInfo, 100);
+        });
+        
+        // 防止双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>

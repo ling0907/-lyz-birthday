@@ -2,7 +2,11 @@
 body {
 	display:block;
 	margin:0px;
-	overflow:hidden;
+	padding:0;
+	width:100%;
+	height:100vh;
+	overflow-x:hidden;
+	touch-action:manipulation;
 }
 
 #cake {
@@ -10,7 +14,9 @@ body {
   position: relative;
   margin-top: -10em;
   margin-bottom: 0px;
-  margin-left: 42.5%;
+  margin-left: calc(50% - 100px);
+  width: 200px;
+  max-width: 80vw;
 }
 
 /* ============================================== Candle
@@ -18,18 +24,21 @@ body {
 .bg {
   width: 100%;
   height: 100vh;
+  min-height: 100vh;
   background: #667eea;
   background: -webkit-linear-gradient(45deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background: linear-gradient(45deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
+
 .velas {
   background: #ffffff;
   border-radius: 10px;
   position: relative;
   top: 250px;
-  margin-left: 49.15%;
+  margin-left: calc(50% - 2.5px);
   width: 5px;
   height: 35px;
   -webkit-transform: translateY(-300px);
@@ -490,13 +499,13 @@ body {
 		opacity:0;
 		right:15.5%;
 	}
-	100% {
+	100% 	100% {
 		opacity:1;
 		right:25.5%;
 	}
 }
 @-webkit-keyframes btn2 {
-	0% {
+  0% {
 		opacity:0;
 		right:0.5%;
 	}
@@ -508,6 +517,113 @@ body {
 		opacity:1;
 		right:25.5%;
 	}
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .bg {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  #cake {
+    width: 150px;
+    margin-left: calc(50% - 75px);
+    margin-top: -8em;
+  }
+  
+  .velas {
+    width: 8px;
+    height: 40px;
+    margin-left: calc(50% - 4px);
+    top: 200px;
+  }
+  
+  .fuego {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .happy {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+    top: 50%;
+  }
+  
+  .happy img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+  
+  .button-style1 {
+    left: 10%;
+    top: 75%;
+    width: 35%;
+    min-width: 100px;
+  }
+  
+  .button-style2 {
+    right: 10%;
+    top: 75%;
+    width: 35%;
+    min-width: 100px;
+    left: auto;
+  }
+  
+  .link1, .link2 {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #cake {
+    width: 120px;
+    margin-left: calc(50% - 60px);
+  }
+  
+  .velas {
+    width: 6px;
+    height: 35px;
+    margin-left: calc(50% - 3px);
+  }
+  
+  .happy {
+    width: 90%;
+    top: 52%;
+  }
+  
+  .button-style1, .button-style2 {
+    width: 30%;
+    min-width: 80px;
+    top: 78%;
+  }
+  
+  .link1, .link2 {
+    height: 40px;
+    line-height: 40px;
+    font-size: 13px;
+  }
+}
+
+/* 触摸优化 */
+button, a, .link1, .link2 {
+  min-height: 44px;
+  min-width: 44px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .lk1,.lk2 {
 	text-decoration:none;
@@ -726,3 +842,135 @@ body {
 	border:2px solid #BBB;
 	transition:all 0.8s;
 } */
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+  /* 1. 调整字体大小 */
+  body {
+    font-size: 14px;
+  }
+  
+  h1, h2, h3 {
+    font-size: 1.5em !important;
+  }
+  
+  /* 2. 调整蛋糕蜡烛页面 */
+  .bg {
+    overflow: auto;
+    min-height: 100vh;
+  }
+  
+  .velas {
+    margin-left: calc(50% - 2.5px);
+    top: 30vh;
+  }
+  
+  #cake {
+    width: 150px;
+    margin-left: calc(50% - 75px);
+    margin-top: -5em;
+  }
+  
+  .happy {
+    left: 50% !important;
+    transform: translateX(-50%);
+    width: 80%;
+    top: 40% !important;
+  }
+  
+  .happy img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* 3. 调整按钮位置 */
+  .button-style1, .button-style2 {
+    width: 40%;
+    text-align: center;
+  }
+  
+  .button-style1 {
+    left: 10% !important;
+  }
+  
+  .button-style2 {
+    right: 10% !important;
+    left: auto !important;
+  }
+  
+  .link1, .link2 {
+    width: 100% !important;
+    height: 50px !important;
+    line-height: 50px !important;
+  }
+  
+  .bt1, .bt2 {
+    top: 0 !important;
+    line-height: 50px !important;
+  }
+  
+  /* 4. 调整许愿按钮 */
+  .wish-button-container {
+    left: 50% !important;
+    top: 70% !important;
+    width: 80%;
+  }
+  
+  .wish-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+}
+
+/* 手机端动画优化 */
+@media (max-width: 768px) {
+  /* 减少气泡数量提升性能 */
+  .bg-bubbles li:nth-child(n+5) {
+    display: none;
+  }
+  
+  .bg-bubbles li {
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* 调整动画时长 */
+  @keyframes square {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-700px) rotate(400deg); }
+  }
+  
+  /* 文字动画调整 */
+  @keyframes happybirthdays {
+    0% { top: 40%; opacity: 0; }
+    70% { top: 40%; opacity: 0; }
+    100% { top: 45%; opacity: 1; }
+  }
+  
+  /* 按钮动画调整 */
+  @keyframes btn1, @keyframes btn2 {
+    0% { opacity: 0; }
+    70% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+}
+
+/* 触摸优化 */
+button, a, input[type="submit"] {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 防止双击缩放 */
+* {
+  touch-action: manipulation;
+}
+
+/* 优化滚动 */
+html {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
